@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 
 import { ChartPie } from 'components/ChartPie';
 
+import './Charts.scss'
+
 export function Charts({pie}){
   const [ data, setData ] = useState([]);
   useEffect(() => {
@@ -28,7 +30,7 @@ export function Charts({pie}){
   const setActualData = (countData) => {
     const dataNew = [];
     for (let key in countData){
-      data.push({name: rusValue[key], value: countData[key]})
+      dataNew.push({name: rusValue[key], value: countData[key]})
     }
     setData(dataNew);
   }
