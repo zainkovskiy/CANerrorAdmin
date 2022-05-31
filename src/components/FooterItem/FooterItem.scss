@@ -1,0 +1,8 @@
+.footer-item {
+  display: flex;
+  gap: 0.5rem;
+  & span {
+    font-size: 12px;
+    font-weight: 700;
+  }
+}
