@@ -75,15 +75,17 @@ export function Footer() {
   }, [lastItem])
   return (
     <div className="footer">
-      {
-        history.length > 0 &&
-        history.map((row, idx) => {
-          if (idx + 1 === history.length) {
-            return <FooterItem key={idx} item={row} ref={lastItem} />
-          }
-          return <FooterItem key={idx} item={row} />
-        })
-      }
+      <div className="footer__wrap">
+        {
+          history.length > 0 &&
+          history.map((row, idx) => {
+            if (idx + 1 === history.length) {
+              return <FooterItem key={idx} item={row} ref={lastItem} />
+            }
+            return <FooterItem key={idx} item={row} />
+          })
+        }
+      </div>
     </div>
   )
 }

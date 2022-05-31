@@ -6,11 +6,11 @@ import { Content } from 'components/Content';
 
 import './Main.scss';
 
-export function Main() {
+export function Main({currentFeed}) {
   return (
     <div className="main">
       <Control />
-      <Charts />
+      <Charts pie={currentFeed?.active || ''}/>
       <Content />
     </div>
   )

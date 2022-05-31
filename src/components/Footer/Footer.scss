@@ -1,7 +1,13 @@
 .footer{
-  max-height: 80px;
-  border-top: 1px solid grey;
+  max-height: 75px;
+  border-top: 1px solid #e5e5e5;
   padding: 0.5rem;
-  overflow: auto;
   box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  &__wrap{
+    max-height: calc(75px - 1rem);
+    overflow: auto;
+    width: 100%;
+  }
 }
