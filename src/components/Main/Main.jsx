@@ -6,12 +6,17 @@ import { Content } from 'components/Content';
 
 import './Main.scss';
 
-export function Main({currentFeed}) {
+export function Main({ currentFeed }) {
   return (
     <div className="main">
       <Control />
-      <Charts pie={currentFeed?.active || ''}/>
-      <Content />
+      <Charts
+        pie={currentFeed?.active || []}
+        line={currentFeed?.statistic || []}
+      />
+      <Content
+        list={currentFeed?.active || []}
+      />
     </div>
   )
 }

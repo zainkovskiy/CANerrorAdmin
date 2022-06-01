@@ -1,0 +1,14 @@
+.content{
+  overflow: auto;
+  position: relative; 
+  &__text{
+    padding: .5rem;
+    border-radius: 5px;
+    margin: 0;
+    transition: background-color .3s;
+  }
+  &__text:hover{
+    background-color: #e5e5e5;
+    cursor: pointer;
+  }
+}

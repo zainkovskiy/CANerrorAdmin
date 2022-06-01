@@ -3,6 +3,8 @@
   gap: 1rem;
   padding: 0.5rem;
   cursor: pointer;
+  width: 100%;
+  box-sizing: border-box;
   &:hover{
     background-color: #e5e5e5;
   }

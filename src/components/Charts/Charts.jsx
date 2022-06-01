@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from 'react';
 
 import { ChartPie } from 'components/ChartPie';
+import { ChatrLine } from 'components/ChatrLine';
 
 import './Charts.scss'
 
-export function Charts({pie}){
-  const [ data, setData ] = useState([]);
+export function Charts({ pie, line }) {
+  const [data, setData] = useState([]);
   useEffect(() => {
-    if (pie){
+    if (pie.length > 0) {
       countPieChart();
-    }     
+    }
   }, [pie]);
 
   const countPieChart = () => {
@@ -21,7 +22,7 @@ export function Charts({pie}){
     }
     /** потом можно условие if else убрать */
     pie.map(item => {
-      if (item.type !== 'a' &&  item.type !== 'e'){
+      if (item.type !== 'a' && item.type !== 'e') {
         countData[item.type]++
       }
     })
@@ -29,18 +30,20 @@ export function Charts({pie}){
   }
   const setActualData = (countData) => {
     const dataNew = [];
-    for (let key in countData){
-      dataNew.push({name: rusValue[key], value: countData[key]})
+    for (let key in countData) {
+      dataNew.push({ name: rusValue[key], value: countData[key] })
     }
     setData(dataNew);
   }
-  return(
+  return (
     <div className="charts">
       {
-        data.length > 0 && 
-        <ChartPie pie={data}/>
+        data.length > 0 &&
+        <>
+          <ChartPie pie={data} />
+          <ChatrLine line={line} />
+        </>
       }
-      Charts
     </div>
   )
 }
