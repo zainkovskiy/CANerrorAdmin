@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import axios from 'axios';
+
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import Box from '@mui/material/Box';
@@ -14,92 +16,47 @@ export function Content({ list }) {
   const [operational, setOperational] = useState([])
   const [operationalFilter, setOperationalFilter] = useState([])
   const [currentSearchValue, setCurrentSearchValue] = useState('')
+  const [startTimer, setStartTimer] = useState(false);
+  const timerRef= useRef(null);
 
   useEffect(() => {
-    setOperational([
-      {
-        "contractId": "69653",
-        "reqNumber": "69653",
-        "onFeed": "1"
-      },
-      {
-        "contractId": "68203",
-        "reqNumber": "68203",
-        "onFeed": "1"
-      },
-      {
-        "contractId": "70712",
-        "reqNumber": "70712",
-        "onFeed": "1"
-      },
-    ])
-    setTimeout(() => {
-      setOperational([
-        {
-          "contractId": "69653",
-          "reqNumber": "69653",
-          "onFeed": "1"
-        },
-        {
-          "contractId": "68203",
-          "reqNumber": "68203",
-          "onFeed": "1"
-        },
-        {
-          "contractId": "70712",
-          "reqNumber": "70712",
-          "onFeed": "1"
-        },
-        {
-          "contractId": "70673",
-          "reqNumber": "70673",
-          "onFeed": "1"
-        },
-        {
-          "contractId": "70714",
-          "reqNumber": "70714",
-          "onFeed": "1"
-        },
-        {
-          "contractId": "52580",
-          "reqNumber": "52580",
-          "onFeed": "1"
-        },
-        {
-          "contractId": "другой",
-          "reqNumber": "99653",
-          "onFeed": "1"
-        },
-      ])
-    }, 5000)
-    setOperationalFilter([
-      {
-        "contractId": "69653",
-        "reqNumber": "69653",
-        "onFeed": "1"
-      },
-      {
-        "contractId": "68203",
-        "reqNumber": "68203",
-        "onFeed": "1"
-      },
-      {
-        "contractId": "70712",
-        "reqNumber": "70712",
-        "onFeed": "1"
-      },
-    ])
+    getData();
   }, [])
 
   useEffect(() => {
-    if (operational.length > 0){
-      if (value === 1 && currentSearchValue){
+    if (startTimer){
+      timerRef.current = setInterval(() => {
+        getData();
+      }, 60000)      
+    }
+    return () => {
+      timerRef.current && clearInterval(timerRef.current);
+      timerRef.current = null;
+    }
+  }, [startTimer])
+
+  const getData = async () => {
+    try {
+      const res = await axios.post('https://hs-01.centralnoe.ru/Project-Selket-Main/Servers/Feed/Controller.php', { action: 'getOper' });
+      res?.data && setOperational(res.data)
+      if (!startTimer) {
+        res?.data && setOperationalFilter(res.data)
+      }
+      setStartTimer(true);
+    } catch {
+      console.log('error')
+    }
+  }
+
+  useEffect(() => {
+    if (operational.length > 0) {
+      if (value === 1 && currentSearchValue) {
         filterOper(currentSearchValue);
       } else {
         setOperationalFilter(operational)
       }
     }
-  }, [operational]) 
+  }, [operational])
 
   const handleChange = (event, newValue) => {
     setValue(newValue)
@@ -117,7 +74,7 @@ export function Content({ list }) {
     if (name === 'active') {
       filterActive(search, select)
     }
-    if (name === 'oper'){
+    if (name === 'oper') {
       filterOper(search)
     }
   }
@@ -136,7 +93,7 @@ export function Content({ list }) {
 
   return (
     <div className="content">
-      <Box sx={{ borderBottom: 1, borderColor: 'divider', position: 'sticky', top: 0, backgroundColor: '#fff' }}>
+      <Box sx={{ borderBottom: 1, borderColor: 'divider', position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 99 }}>
         <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
           <Tab label="Активное содержимое" {...a11yProps(0)} />
           <Tab label="Оперативное содержимое" {...a11yProps(1)} />

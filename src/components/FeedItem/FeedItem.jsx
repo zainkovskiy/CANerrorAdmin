@@ -12,7 +12,7 @@ export function FeedItem({ feed, isActive, setCurrentFeed }) {
       <div className="feed-item__wrap">
         {
           feed?.update &&
-          <span className="feed-item__text text">Обновлен: {moment(feed.update).locale('ru').format('DD MMMM YYYY')} </span>
+          <span className="feed-item__text text">Обновлен: {moment(feed.update).locale('ru').format('DD MMMM hh:mm')} </span>
         }
         {
           feed?.status &&

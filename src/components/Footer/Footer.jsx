@@ -25,6 +25,9 @@ import './Footer.scss';
 export function Footer() {
   const [history, setHistory] = useState([]);
   const lastItem = createRef();
+  // useEffect(() => {
+  //   getData();
+  // }, [])  
   useEffect(() => {
     setHistory([
       {
@@ -73,6 +76,18 @@ export function Footer() {
       lastItem.current.scrollIntoView()
     }
   }, [lastItem])
+
+  // const getData = async () => {
+  //   try {
+  //     const res = await axios.post('https://hs-01.centralnoe.ru/Project-Selket-Main/Servers/Feed/Controller.php', { action: 'get' });
+  //     res?.data && setData(res.data)
+  //   } catch {
+  //     setError(true)
+  //   } finally {
+  //     setLoading(false)
+  //   }
+  // }
+
   return (
     <div className="footer">
       <div className="footer__wrap">

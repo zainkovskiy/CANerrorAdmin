@@ -7,7 +7,7 @@ import DialogActions from '@mui/material/DialogActions';
 export function DialogControl1c({ onClose }) {
   return (
     <>
-      <DialogTitle>A you shure?</DialogTitle>
+      <DialogTitle>Are you shure?</DialogTitle>
       <DialogActions>
         <Button>Да</Button>
         <Button
