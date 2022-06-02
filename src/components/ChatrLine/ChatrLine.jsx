@@ -41,6 +41,7 @@ export function ChatrLine({ line }) {
         />
         <YAxis
           style={{ fontFamily: 'Montserrat', fontSize: 12 }}
+          domain={['dataMin', 'dataMax']}
         />
         <Tooltip
           content={<CustomToolTip />}
